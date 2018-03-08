@@ -21,6 +21,7 @@ public class Test2 {
         Test2 test2 = new Test2();
         test2.mProviders.put(Test.class, Test::new);
         Test test = test2.getDependency(Test.class);
+        test2.setTest2(b -> System.out.println("work:" + b));
     }
 
     private <T> T getDependency(Class<T> cls) {
@@ -35,6 +36,26 @@ public class Test2 {
         return provider.createDependencyProvider();
     }
 
+    public void setTest1(LambdaTest test1) {
+        this.mTest1 = mTest1;
+    }
+
+    public void setTest2(LambdaTest2 test2) {
+        this.mTest2 = mTest2;
+    }
+
+    private LambdaTest mTest1;
+    private LambdaTest2 mTest2;
+
+    interface LambdaTest {
+        default void wouldLambdaWork(boolean work) {
+        }
+    }
+
+    interface LambdaTest2 {
+        void wouldLambdaWork2(boolean work);
+    }
+
     private static String getLastCid(String fileName) {
         File file;
         BufferedReader br = null;
@@ -46,7 +67,7 @@ public class Test2 {
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
-            return sb.toString().substring(0,8);
+            return sb.toString().substring(0, 8);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -60,6 +81,8 @@ public class Test2 {
         }
         return null;
     }
+
+    // 泛型应用
     public interface DependencyProvider<T> {
         T createDependencyProvider();
     }
