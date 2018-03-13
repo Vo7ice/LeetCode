@@ -4,3 +4,6 @@
 
 ## Java:
 - [lambda表达式](http://www.importnew.com/16436.html)
+
+## Android:
+- [Android签名机制:签名验证过程详解](http://blog.csdn.net/jiangwei0910410003/article/details/50443505)
