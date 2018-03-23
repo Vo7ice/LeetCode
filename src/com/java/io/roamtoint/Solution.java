@@ -8,7 +8,7 @@ public class Solution {
     public int romanToInt(String s) {
         Map<Character, Integer> roamTable = prepareMap();
         int sum = 0;
-        for (int i = 0; i <= s.length() - 1; i++) {
+        /*for (int i = 0; i <= s.length() - 1; i++) {
             char c = s.charAt(i);
             if (roamTable.containsKey(c)) {
                 int num = roamTable.get(c);
@@ -19,8 +19,17 @@ public class Solution {
                     sum = num - sum;
                 }
             }
+        }*/
+        int len = s.length();
+        int start = roamTable.get(s.charAt(len - 1)); // the end num
+        for (int i = len -2; i >= 0; i--) {
+            if (roamTable.get(s.charAt(i)) >= roamTable.get(s.charAt(i + 1))) {
+                start += roamTable.get(s.charAt(i));
+            } else {
+                start -= roamTable.get(s.charAt(i));
+            }
         }
-        return sum;
+        return start;
     }
 
     /*I - 1
@@ -71,7 +80,7 @@ public class Solution {
         System.out.println("the CM  result:" + solution.romanToInt("CM"));
         System.out.println("the III  result:" + solution.romanToInt("III"));
         System.out.println("the IIIV  result:" + solution.romanToInt("VIII"));
-        System.out.println("the DCXXI  result:" + solution.romanToInt("DCXXI"));
+        System.out.println("the DCXXI  result:" + solution.romanToInt("MMMDLXXXVI"));
         System.out.println("the MCMXCVI  result:" + solution.romanToInt("MCMXCVI"));
     }
 }
