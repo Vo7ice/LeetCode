@@ -4,6 +4,7 @@
 
 ## Java:
 - [lambda表达式](http://www.importnew.com/16436.html)
+- [平方根整除](https://en.wikipedia.org/wiki/Integer_square_root#Using_only_integer_division)
 
 ## Android:
 - [Android签名机制:签名验证过程详解](http://blog.csdn.net/jiangwei0910410003/article/details/50443505)
