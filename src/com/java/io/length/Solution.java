@@ -17,5 +17,16 @@ public class Solution {
         System.out.println("aba result:" + solution.lengthOfLastWord("aba"));
         System.out.println("' ' result:" + solution.lengthOfLastWord(" "));
         System.out.println("Hello World result:" + solution.lengthOfLastWord("Hello World"));
+
+        String selection = "itemType" + " = ? " + " AND " + " title = ?";
+
+        String position = "0,3";
+        String[] filter;
+        if (position.contains(",")) {
+            filter = position.split(",");
+            Integer.valueOf(filter[0]);
+        } else {
+
+        }
     }
 }
