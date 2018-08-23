@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static java.util.stream.Collectors.toList;
 
@@ -35,6 +36,34 @@ public class Solution {
         mTestList.add(new Test("liupan",90));
         Collections.sort(mTestList);
         mTestList.forEach(item -> System.out.println("test = " + item.toString()));
+
+        System.out.println("result = " + isActivateSdcplus("ACTIVATE PoCService 00909"));
+        System.out.println("result = " + isActivateSdcplusUpdate("ACTIVATE PoCService 909090868688683424324234"));
+        System.out.println("round :" + roundStorageSize(64021856256l));
+    }
+
+    private static final String REGEX_ACTIVATE_SDCPLUS = "ACTIVATE PoCService *";
+    private static final String REGEX_ACTIVATE_SDCPLUS_UPDATE = "ACTIVATE PoCService [0-9]{6,}";
+    private static boolean isActivateSdcplus(String message) {
+        return Pattern.matches(REGEX_ACTIVATE_SDCPLUS, message);
+    }
+
+    private static boolean isActivateSdcplusUpdate(String message) {
+        return Pattern.matches(REGEX_ACTIVATE_SDCPLUS_UPDATE, message);
+    }
+
+    public static long roundStorageSize(long size) {
+        long val = 1;
+        long pow = 1;
+        while ((val * pow) < size) {
+            val <<= 1;
+            if (val > 512) {
+                val = 1;
+                pow *= 1000;
+            }
+            System.out.println("roundStorageSize val = " + val + ",pow = " + pow);
+        }
+        return val * pow;
     }
 
     public static class Test implements Comparable<Test> {
@@ -46,6 +75,7 @@ public class Solution {
             this.name = name;
             this.age = age;
         }
+
 
         public String getName() {
             return name;
