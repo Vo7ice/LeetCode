@@ -26,24 +26,28 @@ public class Solution {
         mCharList.stream()
                 .sorted(Comparator.comparing(CharSequence::toString))
                 .collect(toList());
-        mCharList.forEach(item -> {
-            System.out.println("item = " + item);
-        });
+        mCharList.forEach(item -> System.out.println("item = " + item));
 
         List<Test> mTestList = new ArrayList<>();
         mTestList.add(new Test("liupangzi", 3));
-        mTestList.add(new Test("liupangzi2",18));
-        mTestList.add(new Test("liupan",90));
+        mTestList.add(new Test("liupangzi2", 18));
+        mTestList.add(new Test("liupan", 90));
         Collections.sort(mTestList);
         mTestList.forEach(item -> System.out.println("test = " + item.toString()));
 
         System.out.println("result = " + isActivateSdcplus("ACTIVATE PoCService 00909"));
         System.out.println("result = " + isActivateSdcplusUpdate("ACTIVATE PoCService 909090868688683424324234"));
         System.out.println("round :" + roundStorageSize(64021856256l));
+        System.out.println("round :" + roundStorageSize(16652849152l));
+        System.out.println("round :" + roundStorageSize(32021856256l));
+        System.out.println("round2 :" + roundStorageSizeTwo(64021856256l));
+        System.out.println("round2 :" + roundStorageSizeTwo(16652849152l));
+        System.out.println("round2 :" + roundStorageSizeTwo(32021856256l));
     }
 
     private static final String REGEX_ACTIVATE_SDCPLUS = "ACTIVATE PoCService *";
     private static final String REGEX_ACTIVATE_SDCPLUS_UPDATE = "ACTIVATE PoCService [0-9]{6,}";
+
     private static boolean isActivateSdcplus(String message) {
         return Pattern.matches(REGEX_ACTIVATE_SDCPLUS, message);
     }
@@ -55,14 +59,31 @@ public class Solution {
     public static long roundStorageSize(long size) {
         long val = 1;
         long pow = 1;
-        while ((val * pow) < size) {
+        long realPow = 1;
+        while ((val * realPow) < size) {
+            val <<= 1;
+            if (val > 512) {
+                val = 1;
+                pow *= 1000;
+                realPow *= 1024;
+            }
+        }
+        System.out.println("val * pow = " + (val * pow) + " val * realPow= " + (val * realPow));
+        return val * pow;
+    }
+
+    public static long roundStorageSizeTwo(long size) {
+        long val = 1;
+        long pow = 1;
+        while (val * pow < (size / 1024 * 1000)) {
             val <<= 1;
             if (val > 512) {
                 val = 1;
                 pow *= 1000;
             }
-            System.out.println("roundStorageSize val = " + val + ",pow = " + pow);
+            System.out.println("val = " + val + ",pow = " + pow);
         }
+        System.out.println("val * pow = " + (val * pow));
         return val * pow;
     }
 
