@@ -37,12 +37,16 @@ public class Solution {
 
         System.out.println("result = " + isActivateSdcplus("ACTIVATE PoCService 00909"));
         System.out.println("result = " + isActivateSdcplusUpdate("ACTIVATE PoCService 909090868688683424324234"));
-        System.out.println("round :" + roundStorageSize(64021856256l));
-        System.out.println("round :" + roundStorageSize(16652849152l));
-        System.out.println("round :" + roundStorageSize(32021856256l));
+        System.out.println("round1 :" + roundStorageSize(64021856256l));
+        System.out.println("round1 :" + roundStorageSize(16652849152l));
+        System.out.println("round1 :" + roundStorageSize(32021856256l));
         System.out.println("round2 :" + roundStorageSizeTwo(64021856256l));
         System.out.println("round2 :" + roundStorageSizeTwo(16652849152l));
+        System.out.println("round2 :" + roundStorageSizeTwo(16030000000l));
         System.out.println("round2 :" + roundStorageSizeTwo(32021856256l));
+        System.out.println("roundOri :" + roundStorageSizeOri(64021856256l));
+        System.out.println("roundOri :" + roundStorageSizeOri(16030000000l));
+        System.out.println("roundOri :" + roundStorageSizeOri(32021856256l));
     }
 
     private static final String REGEX_ACTIVATE_SDCPLUS = "ACTIVATE PoCService *";
@@ -81,9 +85,22 @@ public class Solution {
                 val = 1;
                 pow *= 1000;
             }
-            System.out.println("val = " + val + ",pow = " + pow);
+            // System.out.println("val = " + val + ",pow = " + pow);
         }
         System.out.println("val * pow = " + (val * pow));
+        return val * pow;
+    }
+
+    public static long roundStorageSizeOri(long size) {
+        long val = 1;
+        long pow = 1;
+        while ((val * pow) < size) {
+            val <<= 1;
+            if (val > 512) {
+                val = 1;
+                pow *= 1000;
+            }
+        }
         return val * pow;
     }
 
